@@ -1,0 +1,3 @@
+include ':deviceinfo'
+include ':app'
+rootProject.name = "AndroidDeviceInfo"
