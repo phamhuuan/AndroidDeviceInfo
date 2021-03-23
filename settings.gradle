@@ -1,3 +1,6 @@
+include ':deviceinfo-lib'
+include ':deviceinfo-release'
 include ':deviceinfo'
 include ':app'
+project(':deviceinfo-lib').projectDir = new File(rootDir, 'deviceinfo-release/')
 rootProject.name = "AndroidDeviceInfo"
