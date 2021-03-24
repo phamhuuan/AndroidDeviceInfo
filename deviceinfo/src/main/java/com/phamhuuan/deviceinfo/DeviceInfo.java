@@ -1,12 +1,14 @@
 package com.phamhuuan.deviceinfo;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.net.ConnectivityManager;
 import android.os.Build;
+import android.provider.Settings.Secure;
 import android.telephony.TelephonyManager;
 import android.text.TextUtils;
 import android.util.DisplayMetrics;
@@ -190,6 +192,11 @@ public class DeviceInfo {
 		} else {
 			return true;
 		}
+	}
+
+	public static String getDeviceId(Context context) {
+		@SuppressLint("HardwareIds") String deviceUuid = Secure.getString(context.getContentResolver(), Secure.ANDROID_ID);
+		return deviceUuid == null ? "00000000" : deviceUuid;
 	}
 
 	private static long getFreeMemory(Context activity) {
@@ -508,11 +515,11 @@ public class DeviceInfo {
 		return type;
 	}
 
-	public static boolean isTablet(Context context) {
+	private static boolean isTablet(Context context) {
 		return (context.getResources().getConfiguration().screenLayout & Configuration.SCREENLAYOUT_SIZE_MASK) >= Configuration.SCREENLAYOUT_SIZE_LARGE;
 	}
 
-	public static boolean getDeviceMoreThan5Inch(Context activity) {
+	private static boolean getDeviceMoreThan5Inch(Context activity) {
 		try {
 			DisplayMetrics displayMetrics = activity.getResources().getDisplayMetrics();
 			// int width = displayMetrics.widthPixels;
